@@ -1,0 +1,11 @@
+# Ignore everything
+*
+
+# But not these files...
+!.gitignore
+# etc...
+
+# ...even if they are in subdirectories
+!generator-apparena-boilerplate/
+!generator-apparena-boilerplate/*
+generator-apparena-boilerplate/node_modules
