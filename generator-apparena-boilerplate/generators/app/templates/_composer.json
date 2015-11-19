@@ -1,0 +1,5 @@
+{
+  "require": {
+    "app-arena/php-sdk": "^1.1"
+  }
+}
