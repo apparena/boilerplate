@@ -1,0 +1,23 @@
+{
+  "name": "<%= appNameSlug %>",
+  "version": "<%= appVersion %>",
+  "dependencies": {
+    "font-awesome": "~4",
+    "bootstrap": "~3",
+    "bootstrap-social": "~4.9.1",
+    "requirejs-text": "~2.0",
+    "requirejs": "2.1",
+    "backbone-amd": "1.1",
+    "underscore-amd": "1.5",
+    "underscore.string": "2.3",
+    "jquery.validation": "1.11",
+    "jquery": "~2.0",
+    "iCheck": "latest",
+    "normalize.css": "latest",
+    "pace": "latest",
+    "datatables": "~1.10.9",
+    "datatables-buttons": "~1.0.3",
+    "iframe-resizer": "~3.4.2",
+    "bootstrap-sweetalert": "~0.4.5"
+  }
+}

@@ -1,11 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Darius
- * Date: 19.11.2015
- * Time: 09:39
- */
-define("ROOT_PATH", realpath(dirname(__FILE__)));
+define("ROOT_PATH", realpath(dirname(__FILE__))); //TODO: use real project path because you dont know where "public" is
 require ROOT_PATH . '/vendor/autoload.php';
 
 $m_id = <%= modelId %>; // Set your app-arena Model ID here

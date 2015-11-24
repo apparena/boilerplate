@@ -1,9 +1,9 @@
 {
   "name": "<%= appNameSlug %>",
-  "version": "0.0.0",
+  "version": "<%= appVersion %>",
   "dependencies": {},
   "devDependencies": {
-    "composer": "^0.8.0"
+    "composer": "*"
   },
   "engines": {
     "node": ">=0.8.0"

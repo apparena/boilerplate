@@ -76,6 +76,7 @@ module.exports = generators.Base.extend({
             this.config.set('appName', this.appName);
             this.config.set('modelId', this.modelId);
             this.config.set('publicPath', this.publicPath);
+            this.config.set('appVersion', this.publicPath);
             this.config.save();
             done();
         }.bind(this));
@@ -104,15 +105,25 @@ module.exports = generators.Base.extend({
             this.templatePath('_package.json'),
             this.destinationPath('package.json'),
             {
-                appNameSlug: _s.slugify(this.config.get('appName'))
+                appNameSlug: _s.slugify(this.config.get('appName')),
+                appVersion: this.config.get('appVersion')
+            }
+        );
+        this.fs.copyTpl(
+            this.templatePath('_bower.json'),
+            this.destinationPath('bower.json'),
+            {
+                appNameSlug: _s.slugify(this.config.get('appName')),
+                appVersion: this.config.get('appVersion')
             }
         );
     },
     install: function () {
-        this.log(chalk.blue.bold('\ninstalling npm modules...'));
+        this.log(chalk.blue.bold('\ninstalling npm & bower dependencies...'));
         //this.npmInstall(['composer'], {'saveDev': true});
         //this.npmInstall();
-        this.spawnCommand('npm', ['install']);
+        //this.spawnCommand('npm', ['install']);
+        this.installDependencies({npm:true, bower: true, skipMessage: false})
         this.log(chalk.blue.bold('\ncomposer install...'));
         this.spawnCommand('composer', ['install']);
     }

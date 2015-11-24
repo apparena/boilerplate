@@ -1,5 +1,6 @@
 {
   "require": {
-    "app-arena/php-sdk": "^1.1"
+    "app-arena/php-sdk": "^1.1.42",
+    "cbschuld/browser.php": "dev-master"
   }
 }

@@ -1,11 +1,9 @@
 # Ignore everything
 *
 
-# But not these files...
+# But not these files & folders...
 !.gitignore
-# etc...
-
-# ...even if they are in subdirectories
 !generator-apparena-boilerplate/
 !generator-apparena-boilerplate/**
+
 generator-apparena-boilerplate/node_modules
