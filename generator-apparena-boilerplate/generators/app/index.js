@@ -4,6 +4,7 @@ var chalk = require('chalk');
 //var _ = require('lodash');
 var _s = require('underscore.string');
 var mkdirp = require('mkdirp');
+var path = require("path");
 
 module.exports = generators.Base.extend({
     // The name `constructor` is important here
@@ -29,7 +30,7 @@ module.exports = generators.Base.extend({
     initializing: function () {
         if (!this.options['skip-welcome-message']) {
             //this.log(require('yeoman-welcome'));
-            this.log(yosay('Hello, and welcome to my '+chalk.blue.bold('fantastic')+' generator full of whimsy and bubble gum!'));
+            this.log(yosay('Hello, and welcome to my ' + chalk.blue.bold('fantastic') + ' generator full of whimsy and bubble gum!'));
             this.log(chalk.yellow.bold('Out of the box I include the Apparena-PHP-SDK.\n'));
         }
     },
@@ -48,14 +49,14 @@ module.exports = generators.Base.extend({
                 type: 'input',
                 name: 'publicPath',
                 message: 'Your path to the public folder (where your Apache document-root should be)',
-                default: '/public/',
+                default: 'public' + path.sep,
                 store: true
             },
             {
                 type: 'input',
                 name: 'cachePath',
                 message: 'Cache folder (where the php-sdk will populate the app-data)',
-                default: '/var/cache/',
+                default: 'var' + path.sep + 'cache' + path.sep,
                 store: true
             },
             {
@@ -73,8 +74,8 @@ module.exports = generators.Base.extend({
             }
         ], function (answers) {
             this.appName = answers.appName;
-            this.publicPath = answers.publicPath.replace(/^\/|\/$/g, ''); //remove first- and last-char when slash
-            this.cachePath = answers.cachePath.replace(/^\/|\/$/g, ''); //remove first- and last-char when slash
+            this.publicPath = answers.publicPath.replace(/^\/|^\\|\/$|\\$/g, ''); //remove first- and last-char when slash
+            this.cachePath = answers.cachePath.replace(/^\/|^\\|\/$|\\$/g, ''); //remove first- and last-char when slash
             this.modelId = answers.modelId;
             this.appVersion = answers.appVersion;
 
@@ -96,12 +97,20 @@ module.exports = generators.Base.extend({
 
         this.log(chalk.blue.bold('\ncopy templates...'));
         this.fs.copyTpl(
-            this.templatePath('public/index.php'),
-            this.destinationPath(this.config.get('publicPath') + '/index.php'),
+            this.templatePath('public' + path.sep + 'index.php'),
+            this.destinationPath(this.config.get('publicPath') + path.sep + '/index.php'),
             {
                 appName: this.config.get('appName'),
                 modelId: this.config.get('modelId'),
                 appNameSlug: _s.slugify(this.config.get('appName')),
+                cachePath: this.config.get('cachePath')
+            }
+        );
+        this.fs.copyTpl(
+            this.templatePath('public' + path.sep + 'clean.php'),
+            this.destinationPath(this.config.get('publicPath') + path.sep + '/clean.php'),
+            {
+                modelId: this.config.get('modelId'),
                 cachePath: this.config.get('cachePath')
             }
         );
@@ -131,7 +140,7 @@ module.exports = generators.Base.extend({
         //this.npmInstall(['composer'], {'saveDev': true});
         //this.npmInstall();
         //this.spawnCommand('npm', ['install']);
-        this.installDependencies({npm:true, bower: true, skipMessage: false})
+        this.installDependencies({npm: true, bower: true, skipMessage: false})
         this.log(chalk.blue.bold('\ncomposer install...'));
         this.spawnCommand('composer', ['install']);
     }
