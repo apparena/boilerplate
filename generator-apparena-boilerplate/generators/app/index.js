@@ -54,7 +54,7 @@ module.exports = generators.Base.extend({
             {
                 type: 'input',
                 name: 'cachePath',
-                message: 'Chache folder (where the php-sdk will populate the app-data)',
+                message: 'Cache folder (where the php-sdk will populate the app-data)',
                 default: '/var/cache/',
                 store: true
             },
@@ -63,12 +63,20 @@ module.exports = generators.Base.extend({
                 name: 'modelId',
                 message: 'The modelId of your new App',
                 store: true
+            },
+            {
+                type: 'input',
+                name: 'appVersion',
+                message: 'The version of your App',
+                default: '0.0.0',
+                store: true
             }
         ], function (answers) {
             this.appName = answers.appName;
             this.publicPath = answers.publicPath.replace(/^\/|\/$/g, ''); //remove first- and last-char when slash
             this.cachePath = answers.cachePath.replace(/^\/|\/$/g, ''); //remove first- and last-char when slash
             this.modelId = answers.modelId;
+            this.appVersion = answers.appVersion;
 
             // Set needed keys into config
             this.config.set('appPath', this.appPath);
@@ -76,7 +84,7 @@ module.exports = generators.Base.extend({
             this.config.set('appName', this.appName);
             this.config.set('modelId', this.modelId);
             this.config.set('publicPath', this.publicPath);
-            this.config.set('appVersion', this.publicPath);
+            this.config.set('appVersion', this.appVersion);
             this.config.save();
             done();
         }.bind(this));
